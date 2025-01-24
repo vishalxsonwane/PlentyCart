@@ -127,19 +127,13 @@ If you prefer to run the project using Docker, follow these steps:
 1. **Ensure Docker is Installed**:  
    Install Docker and Docker Compose on your system.  
 
-2. **Build the Docker Image**:  
+2. **Build Project**:  
    From the project directory, run:  
    ```bash
-   docker build -t plentycart:latest .
+   docker-compose up --build
    ```
 
-3. **Run the Docker Container**:  
-   Use the following command to start the container:  
-   ```bash
-   docker run -d -p 3000:3000 --name plentycart-container plentycart:latest
-   ```
-
-4. **Access the Application**:  
+3. **Access the Application**:  
    The application will be available at `http://localhost:3030`.  
 
 ---
@@ -148,27 +142,26 @@ If you prefer to run the project using Docker, follow these steps:
 - Make sure the **MongoDB database** is running and accessible. If needed, you can also use a Docker container for MongoDB by adding the following to a `docker-compose.yml` file:  
    ```yaml
    version: '3.8'
-   services:
-     mongodb:
-       image: mongo:latest
-       container_name: mongodb
-       ports:
-         - "27017:27017"
-       volumes:
-         - mongo_data:/data/db
-     plentycart:
-       build: .
-       container_name: plentycart
-       ports:
-         - "3030:3030"
-       environment:
-         - MONGO_URI=mongodb://mongodb:27017/plentycart
-         - SESSION_SECRET=your_secret_key
-   volumes:
-     mongo_data:
-   ```
 
-- Start the project with Docker Compose:  
-   ```bash
-   docker-compose up -d
+services:
+  app:
+    container_name: plentycart-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+      - "4040:4040"
+    env_file: 
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - app-network
+    command: sh -c "npm run dev"
+
+networks:
+  app-network:
+    driver: bridge
    ```
