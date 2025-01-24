@@ -139,29 +139,4 @@ If you prefer to run the project using Docker, follow these steps:
 ---
 
 ### Notes:  
-- Make sure the **MongoDB database** is running and accessible. If needed, you can also use a Docker container for MongoDB by adding the following to a `docker-compose.yml` file:  
-   ```yaml
-   version: '3.8'
-
-services:
-  app:
-    container_name: plentycart-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3030:3030"
-      - "4040:4040"
-    env_file: 
-      - .env
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    networks:
-      - app-network
-    command: sh -c "npm run dev"
-
-networks:
-  app-network:
-    driver: bridge
-   ```
+- Make sure the **MongoDB database** is running and accessible. If needed, you can also use a Docker container for MongoDB by adding the following to a `docker-compose.yml` file:
