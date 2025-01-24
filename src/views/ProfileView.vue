@@ -108,9 +108,12 @@
       };
     },
     computed: {
-      ...mapState('auth', ['user']),
+      ...mapState('auth', ['user', 'isLoading']),
     },
-    mounted() {
+    async mounted() {
+      if (!this.user) {
+        await this.$store.dispatch('auth/checkAuthState');
+      }
       if (this.user) {
         this.populateUserDetails();
       }

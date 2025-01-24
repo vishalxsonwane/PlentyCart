@@ -6,7 +6,8 @@ const state = {
   isAuthenticated: false,
   isAdmin: false,
   error: null,
-  isLoading: true
+  isLoading: true,
+  user: null  // Add explicit user initialization
 }
 
 const getters = {
@@ -104,12 +105,15 @@ const actions = {
       await axios.post('/api/auth/logout', {}, { withCredentials: true });
     } finally {
       commit('CLEAR_AUTH_STATE');
+      commit('CLEAR_USER'); // Add this
+      sessionStorage.clear(); // Add this
     }
   },
 
   async checkAuthState({ commit }) {
     try {
       commit('SET_LOADING', true);
+      commit('CLEAR_USER');
       const response = await axios.get('/api/auth/me', { withCredentials: true });
       
       if (response.data.user) {
@@ -119,6 +123,7 @@ const actions = {
     } catch (error) {
       if (error.response?.status === 401) {
         commit('CLEAR_AUTH_STATE');
+        commit('CLEAR_USER');
       }
     } finally {
       commit('SET_LOADING', false);
