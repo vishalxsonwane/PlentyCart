@@ -90,7 +90,7 @@
                       <td class="category-cell">
                         <span class="badge bg-secondary">{{ product.category }}</span>
                       </td>
-                      <td class="price-cell">${{ formatPrice(product.price) }}</td>
+                      <td class="price-cell">₹{{ formatPrice(product.price) }}</td>
                       <td class="status-cell">
                         <span class="badge" :class="product.is_deleted ? 'bg-danger' : 'bg-success'">
                           {{ product.is_deleted ? 'Inactive' : 'Active' }}
@@ -241,7 +241,6 @@ export default {
 
   created() {
     // Load products immediately when component is created
-    console.log("xx :: this.$route.path ", this.$route.path);
     if (this.$route.path === '/admin/manage') {
       this.loadProducts()
     }

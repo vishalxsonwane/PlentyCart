@@ -1,4 +1,5 @@
 // express.js
+require('dotenv').config({ override: true }); // Load env variables and override system env variables
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');

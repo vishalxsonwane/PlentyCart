@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import TheNavigation from '@/components/layout/TheNavigation.vue'
-import SessionHandler from '@/components/SessionHandler.vue'
+import TheNavigation from '@components/layout/TheNavigation.vue'
+import SessionHandler from '@components/SessionHandler.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {

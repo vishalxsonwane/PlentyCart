@@ -80,7 +80,7 @@ export default {
     ...mapActions('cart', ['addItemToCart']),
     
     formatPrice(price) {
-      return price.toFixed(2)
+      return Number(price).toFixed(2)
     },
 
     decreaseQuantity() {
