@@ -54,7 +54,7 @@
         </thead>
         <tbody>
           <tr v-for="order in filteredOrders" :key="order._id">
-            <td>{{ order.orderId }}</td>
+            <td>{{ order.order_id }}</td>
             <td>{{ order.user_name }} ({{ order.user_email }})</td>
             <td>₹{{ order.total_price.toFixed(2) }}</td>
             <td>
@@ -68,7 +68,7 @@
             </td>
             <td>{{ formatDate(order.date) }}</td>
             <td>
-              <button class="btn btn-primary" @click="viewOrderDetails(order.orderId)">
+              <button class="btn btn-primary" @click="viewOrderDetails(order.order_id)">
                 View Details
               </button>
               <button class="btn btn-danger" @click="refundOrder(order)">
@@ -79,7 +79,7 @@
         </tbody>
       </table>
     </div>
-    <OrderDetails v-if="showOrderDetails" :orderId="selectedOrderId" @close="showOrderDetails = false" />
+    <OrderDetails v-if="showOrderDetails" :order_id="selectedOrderId" @close="showOrderDetails = false" />
   </div>
 </template>
 
@@ -138,8 +138,8 @@ export default {
       updateOrderStatus: 'updateOrderStatus',
       refundOrder: 'refundOrder',
     }),
-    viewOrderDetails(orderId) {
-      this.selectedOrderId = orderId;
+    viewOrderDetails(order_id) {
+      this.selectedOrderId = order_id;
       this.showOrderDetails = true;
     },
     filterOrders() {
@@ -148,7 +148,7 @@ export default {
           this.selectedStatus === '' || order.order_status === this.selectedStatus;
         const dateMatch = this.filterByDate(order.date);
         const searchMatch =
-          order.orderId.includes(this.searchQuery) ||
+          order.order_id.includes(this.searchQuery) ||
           order.user_name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
           order.user_email.toLowerCase().includes(this.searchQuery.toLowerCase());
         return statusMatch && dateMatch && searchMatch;

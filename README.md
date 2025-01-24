@@ -43,13 +43,18 @@ The project utilizes **MongoDB** with three primary data models:
 
 #### **1. User Model**  
 Stores user account details, including:  
-- Full name, phone number, email (lowercase), encrypted password (minimum 4 characters), and admin status.  
-- Automatic timestamps for account creation and updates.  
-- Additional fields for account status and password changes.  
+- `full_name`: Full name of the user (String).
+- `phone_number`: Contact phone number of the user (String).
+- `email`: User's email address, stored in lowercase (String).
+- `password`: Encrypted password for the user account (minimum 4 characters, String).
+- `is_admin`: Indicates whether the user has admin privileges (default: false, Boolean).
+- `created_at`: Timestamp for when the account was created (Date).
+- `updated_at`: Timestamp for when the account was last updated (Date).
+- `password_changed_at`: Timestamp for the last password change (Date).
 
 #### **2. Product Model**  
 Stores product details with the following attributes:  
-- `imagePath`: Path to the product image (String).  
+- `image_path`: Path to the product image (String).  
 - `title`: Product title (String).  
 - `price`: Product price (Number).  
 - `price_description`: Detailed price information (optional, String).  
@@ -59,9 +64,20 @@ Stores product details with the following attributes:
 
 #### **3. Order Model**  
 Tracks order details, including:  
-- Unique `orderId`, user information (email, name, address, etc.), and order status (default: `Pending`).  
-- Product details: Title, quantity, category, image path, and total price per product.  
-- Total order amount, payment status, and order date/time.  
+- `order_id`: Unique identifier for the order (String).
+- `user_email`: Email address of the user who placed the order (String).
+- `user_name`: Full name of the user who placed the order (String).
+- `user_address`: Delivery address for the order (String).
+- `order_status`: Status of the order (default: Pending, String).
+- `products`: Array of product details in the order, including:
+- `title`: Title of the product (String).
+- `quantity`: Quantity of the product ordered (Number).
+- `category`: Category of the product (String).
+- `image_path`: Path to the product image (String).
+- `total_price`: Total price for the product (calculated as price * quantity, Number).
+- `total_order_amount`: Total amount for the entire order (Number).
+- `payment_status`: Payment status for the order (e.g., Paid, Unpaid) (String).
+- `order_date`: Date and time when the order was placed (Date).
 
 #### **4. Cart**  
 Implements a session-based shopping cart for managing items, quantities, and pricing during user sessions.  

@@ -175,7 +175,7 @@ export default {
         email: '',
         password: '',
         passwordConfirm: '',
-        isAdmin: false
+        is_admin: false
       },
       fullNameError: '',
       phoneNumberError: '',
@@ -287,7 +287,7 @@ export default {
           phone_number: this.form.phone_number,
           email: this.form.email,
           password: this.form.password,
-          isAdmin: this.form.isAdmin
+          is_admin: this.form.is_admin
         })
         
         this.$router.push({

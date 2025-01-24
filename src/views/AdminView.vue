@@ -84,7 +84,7 @@
                   <tbody>
                     <tr v-for="product in products" :key="product._id">
                       <td class="image-cell">
-                        <img :src="'/' + product.imagePath" :alt="product.title" class="product-thumbnail">
+                        <img :src="'/' + product.image_path" :alt="product.title" class="product-thumbnail">
                       </td>
                       <td class="title-cell">{{ product.title }}</td>
                       <td class="category-cell">

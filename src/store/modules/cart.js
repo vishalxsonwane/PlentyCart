@@ -56,7 +56,7 @@ const actions = {
         title: product.title,
         price: product.price,
         quantity,
-        imagePath: product.imagePath,
+        image_path: product.image_path,
         category: product.category
       })
       

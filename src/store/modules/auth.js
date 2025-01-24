@@ -135,7 +135,7 @@ const actions = {
 const mutations = {
   SET_AUTH_STATE(state, user) {
     state.isAuthenticated = true;
-    state.isAdmin = user.isAdmin;
+    state.isAdmin = user.is_admin;
   },
 
   CLEAR_AUTH_STATE(state) {
@@ -153,7 +153,7 @@ const mutations = {
   SET_USER(state, user) {
     state.user = user;
     state.isAuthenticated = true;
-    state.isAdmin = user?.isAdmin || false;
+    state.isAdmin = user?.is_admin || false;
   },
 
   CLEAR_USER(state) {

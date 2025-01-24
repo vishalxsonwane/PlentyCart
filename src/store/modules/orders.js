@@ -71,11 +71,11 @@ const actions = {
     }
   },
 
-  async cancelOrder({ commit }, orderId) {
+  async cancelOrder({ commit }, order_id) {
     try {
-      const response = await axios.post(`/api/orders/${orderId}/cancel`);
+      const response = await axios.post(`/api/orders/${order_id}/cancel`);
       commit('UPDATE_ORDER_STATUS', { 
-        orderId, 
+        order_id, 
         status: 'Cancelled' 
       });
       return response.data;
@@ -84,9 +84,9 @@ const actions = {
     }
   },
 
-  async updateOrderStatus({ commit }, { orderId, status }) {
+  async updateOrderStatus({ commit }, { order_id, status }) {
     try {
-      await axios.patch(`/api/admin/orders/${orderId}/status`, { status })
+      await axios.patch(`/api/admin/orders/${order_id}/status`, { status })
       // Optionally, you can refetch the orders after the update
       // commit('SET_ORDERS', updatedOrders)
     } catch (error) {
@@ -95,9 +95,9 @@ const actions = {
     }
   },
 
-  async refundOrder({ commit }, orderId) {
+  async refundOrder({ commit }, order_id) {
     try {
-      await axios.post(`/api/admin/orders/${orderId}/refund`)
+      await axios.post(`/api/admin/orders/${order_id}/refund`)
       // Optionally, you can refetch the orders after the refund
       // commit('SET_ORDERS', updatedOrders)
     } catch (error) {
@@ -106,12 +106,12 @@ const actions = {
     }
   },
 
-  async fetchOrderDetails({ commit }, orderId) {
+  async fetchOrderDetails({ commit }, order_id) {
     try {
       commit('SET_LOADING', true)
       commit('SET_ERROR', null) // Clear any previous errors
       
-      const response = await axios.get(`/api/orders/detail/${orderId}`, {
+      const response = await axios.get(`/api/orders/detail/${order_id}`, {
         withCredentials: true
       });
       
@@ -151,8 +151,8 @@ const mutations = {
   SET_CURRENT_ORDER(state, order) {
     state.currentOrder = order
   },
-  UPDATE_ORDER_STATUS(state, { orderId, status }) {
-    const orderIndex = state.orders.findIndex(order => order.orderId === orderId);
+  UPDATE_ORDER_STATUS(state, { order_id, status }) {
+    const orderIndex = state.orders.findIndex(order => order.order_id === order_id);
     if (orderIndex !== -1) {
       state.orders[orderIndex].order_status = status;
     }

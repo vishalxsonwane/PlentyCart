@@ -16,9 +16,9 @@
 
     <!-- Orders Grid -->
     <div v-else class="orders-grid">
-      <div v-for="order in orders" :key="order.orderId" class="order-card">
+      <div v-for="order in orders" :key="order.order_id" class="order-card">
         <div class="order-header">
-          <h3>Order #{{ order.orderId }}</h3>
+          <h3>Order #{{ order.order_id }}</h3>
           <span :class="['status', getStatusClass(order.order_status)]">
             {{ order.order_status }}
           </span>
@@ -29,13 +29,13 @@
           <p>Items: {{ order.products.length }}</p>
         </div>
         <div class="order-actions">
-          <button class="view-details-btn" @click="viewOrderDetails(order.orderId)">
+          <button class="view-details-btn" @click="viewOrderDetails(order.order_id)">
             View Details
           </button>
           <button 
             v-if="order.order_status === 'Pending'" 
             class="cancel-order-btn" 
-            @click="cancelOrder(order.orderId)"
+            @click="cancelOrder(order.order_id)"
           >
             Cancel Order
           </button>
@@ -52,7 +52,7 @@
     </div>
     <OrderDetails
       v-if="showOrderDetails"
-      :orderId="selectedOrderId"
+      :order_id="selectedOrderId"
       @close="showOrderDetails = false"
     />
   </div>
@@ -94,13 +94,13 @@ export default {
       return Number(price).toFixed(2);
     },
     formatDate,
-    viewOrderDetails(orderId) {
-      this.selectedOrderId = orderId;
+    viewOrderDetails(order_id) {
+      this.selectedOrderId = order_id;
       this.showOrderDetails = true;
     },
-    async cancelOrder(orderId) {
+    async cancelOrder(order_id) {
       try {
-        await this.$store.dispatch('orders/cancelOrder', orderId);
+        await this.$store.dispatch('orders/cancelOrder', order_id);
         this.$toast.success('Order cancelled successfully');
       } catch (error) {
         this.$toast.error(error.response?.data?.message || 'Failed to cancel order');

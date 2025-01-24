@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
         minlength: [4, 'Password must be at least 4 characters long']
     },
-    isAdmin: {
+    is_admin: {
         type: Boolean,
         default: false
     },
@@ -77,7 +77,7 @@ userSchema.methods = {
         return {
             id: this._id,
             email: this.email,
-            isAdmin: this.isAdmin,
+            is_admin: this.is_admin,
             full_name: this.full_name,
             phone_number: this.phone_number,
             created_at: this.created_at,

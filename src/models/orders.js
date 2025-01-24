@@ -3,7 +3,7 @@ const Schema= mongoose.Schema
 
 const ordersSchema=new Schema({
 
-    orderId:{
+    order_id:{
         type:String,
         required:true,
         trim:true
@@ -44,7 +44,7 @@ const ordersSchema=new Schema({
                 required:true,
                 trim:true
             },
-            imagePath:{
+            image_path:{
                 type:String,
                 required:true,
                 trim:true

@@ -4,7 +4,7 @@
     <td class="product-cell">
       <div class="product-info">
         <img 
-          :src="item.imagePath" 
+          :src="item.image_path" 
           :alt="item.title"
           class="product-image"
         >

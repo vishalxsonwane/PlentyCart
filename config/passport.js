@@ -41,7 +41,7 @@ passport.use('local.signup', new LocalStrategy({
         const newUser = new User({
             email: email.toLowerCase(),
             password: password,
-            isAdmin: req.body.isAdmin || false,
+            is_admin: req.body.is_admin || false,
             full_name : req.body.full_name,
             phone_number : req.body.phone_number || null
         });

@@ -172,7 +172,7 @@ router.post('/admin/products', isAdmin, upload.single('image'), async (req, res)
         fs.renameSync(oldPath, newPath);
         
         // Update image path in product data
-        productData.imagePath = `images/${category}/${req.file.filename}`;
+        productData.image_path = `images/${category}/${req.file.filename}`;
       }
   
       const newProduct = new products(productData);
@@ -204,8 +204,8 @@ router.put('/admin/products/:id', isAdmin, upload.single('image'), async (req, r
       if (req.file) {
         // Delete old image if it exists
         const oldProduct = await products.findById(req.params.id);
-        if (oldProduct && oldProduct.imagePath) {
-          const oldImagePath = path.join('public', oldProduct.imagePath);
+        if (oldProduct && oldProduct.image_path) {
+          const oldImagePath = path.join('public', oldProduct.image_path);
           if (fs.existsSync(oldImagePath)) {
             fs.unlinkSync(oldImagePath);
           }
@@ -220,7 +220,7 @@ router.put('/admin/products/:id', isAdmin, upload.single('image'), async (req, r
         fs.renameSync(oldPath, newPath);
         
         // Update image path in product data
-        productData.imagePath = `images/${category}/${req.file.filename}`;
+        productData.image_path = `images/${category}/${req.file.filename}`;
       }
   
       const updatedProduct = await products.findByIdAndUpdate(
@@ -284,13 +284,13 @@ router.delete("/admin/products/:id", isAdmin, async (req, res) => {
     }
 
     // Delete associated image
-    if (product.imagePath) {
-      const imagePath = path.join("public", product.imagePath);
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
+    if (product.image_path) {
+      const image_path = path.join("public", product.image_path);
+      if (fs.existsSync(image_path)) {
+        fs.unlinkSync(image_path);
 
         // Remove empty category directory if no other images exist
-        const categoryDir = path.dirname(imagePath);
+        const categoryDir = path.dirname(image_path);
         const remainingFiles = fs.readdirSync(categoryDir);
         if (remainingFiles.length === 0) {
           fs.rmdirSync(categoryDir);
@@ -341,7 +341,7 @@ router.post("/auth/login", (req, res, next) => {
         user: {
           id: user._id,
           email: user.email,
-          isAdmin: user.isAdmin,
+          is_admin: user.is_admin,
           full_name: user.full_name,
           phone_number: user.phone_number,
           password: user.password,
@@ -798,7 +798,7 @@ router.post("/orders", async (req, res) => {
     } = req.body;
 
     const orderDetails = {
-      orderId: orderId.generate(), // This is already set up in your imports
+      order_id: orderId.generate(), // This is already set up in your imports
       user_email,
       user_name,
       products,
@@ -823,7 +823,7 @@ router.post("/orders", async (req, res) => {
     res.json({
       message: "Order created successfully",
       order: newOrder,
-      orderId: newOrder.orderId,
+      order_id: newOrder.order_id,
     });
   } catch (error) {
     console.error("Order creation error:", error);
@@ -835,10 +835,10 @@ router.post("/orders", async (req, res) => {
 });
 
 // Cancel Order Route
-router.post("/orders/:orderId/cancel", isAuthenticated, async (req, res) => {
+router.post("/orders/:order_id/cancel", isAuthenticated, async (req, res) => {
   try {
     const order = await orders.findOne({ 
-      orderId: req.params.orderId, 
+      order_id: req.params.order_id, 
       user_email: req.user.email 
     });
 
@@ -894,13 +894,13 @@ router.get("/orders", isAuthenticated, async (req, res) => {
   }
 });
 
-// Get specific order details by orderId
-router.get("/orders/detail/:orderId", isAuthenticated, async (req, res) => {
+// Get specific order details by order_id
+router.get("/orders/detail/:order_id", isAuthenticated, async (req, res) => {
   try {
-    let query = { orderId: req.params.orderId };
+    let query = { order_id: req.params.order_id };
     
     // Add user_email check only for non-admin users
-    if (!req.user.isAdmin) {
+    if (!req.user.is_admin) {
       query.user_email = req.user.email;
     }
 
@@ -941,7 +941,7 @@ function isAuthenticated(req, res, next) {
 }
 
 function isAdmin(req, res, next) {
-  if (req.isAuthenticated() && req.user.isAdmin) {
+  if (req.isAuthenticated() && req.user.is_admin) {
     return next();
   }
   res.status(403).json({ message: "Forbidden" });

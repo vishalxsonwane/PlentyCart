@@ -126,7 +126,7 @@ export default {
           title: item.title,
           quantity: item.quantity,
           category: item.category,
-          imagePath: item.imagePath,
+          image_path: item.image_path,
           total_product_price: item.price * item.quantity
         }));
 

@@ -52,7 +52,7 @@ class Cart {
           title: this.items[id].item.title,
           quantity: this.items[id].quantity,
           price: this.items[id].item.price,
-          imagePath: this.items[id].item.imagePath,
+          image_path: this.items[id].item.image_path,
           category: this.items[id].item.category
         });
       }

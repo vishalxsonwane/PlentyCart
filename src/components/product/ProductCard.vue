@@ -3,7 +3,7 @@
   <div class="product-card">
     <div class="product-image-container">
       <img 
-        :src="product.imagePath" 
+        :src="product.image_path" 
         :alt="product.title"
         class="product-image"
       >

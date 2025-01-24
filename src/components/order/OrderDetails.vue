@@ -18,7 +18,7 @@
         <div class="order-details-wrapper">
           <div class="order-info-section">
             <h5 class="mb-3">Order Information</h5>
-            <p class="mb-2"><strong>Order ID:</strong> #{{ order.orderId }}</p>
+            <p class="mb-2"><strong>Order ID:</strong> #{{ order.order_id }}</p>
             <p class="mb-2"><strong>Order Date:</strong> {{ formatDate(order.date) }}</p>
             <p class="mb-2"><strong>Order Time:</strong> {{ order.time }}</p>
             <p class="mb-2">
@@ -53,12 +53,8 @@
               <tbody>
                 <tr v-for="item in order.products" :key="item.title">
                   <td>
-                    <!-- <div class="d-flex align-items-center">
-                      <img :src="'/' + item.imagePath" class="product-image me-3" :alt="item.title" />
-                      <span class="product-title">{{ item.title }}</span>
-                    </div> -->
                     <div class="product-cell">
-                      <img :src="'/' + item.imagePath" class="product-image" :alt="item.title" />
+                      <img :src="'/' + item.image_path" class="product-image" :alt="item.title" />
                       <span class="product-name">{{ item.title }}</span>
                     </div>
                   </td>
@@ -105,7 +101,7 @@ import { formatDate } from '@/utils/formatters'
 export default {
   name: 'OrderDetails',
   props: {
-    orderId: {
+    order_id: {
       type: String,
       required: true
     }
@@ -117,9 +113,9 @@ export default {
     })
   },
   async created() {
-    if (this.orderId) {
+    if (this.order_id) {
       try {
-        await this.fetchOrderDetails(this.orderId)
+        await this.fetchOrderDetails(this.order_id)
       } catch (error) {
         console.error('Failed to fetch order details:', error)
       }

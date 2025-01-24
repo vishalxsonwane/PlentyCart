@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: plentycart-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+      - "4040:4040"
+    env_file: 
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - app-network
+    command: sh -c "npm run dev"
+
+networks:
+  app-network:
+    driver: bridge

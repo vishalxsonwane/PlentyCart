@@ -172,8 +172,8 @@ export default {
         try {
           const product = await store.dispatch('products/fetchProduct', route.params.id);
           Object.assign(form, product);
-          if (product.imagePath) {
-            previewImage.value = '/' + product.imagePath;
+          if (product.image_path) {
+            previewImage.value = '/' + product.image_path;
           }
         } catch (error) {
           console.error('Failed to load product:', error);

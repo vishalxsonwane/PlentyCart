@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const productsSchema = new Schema({
-    imagePath: {
+    image_path: {
         type: String,
         required: true,
         trim:true
